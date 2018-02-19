@@ -6,19 +6,34 @@ var socket = io.connect('http://18.221.71.184');
 var crawlId = false;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (!sender.tab && request.path)
-      chrome.tabs.create({url: `https://chaturbate.com/${request.path}/`, pinned: !0, active: !1 }, (tab)=>{
-        crawlId = tab.id
-        chrome.tabs.update(crawlId, {muted: !0}, ()=>{})
-      })
-    if (sender.tab?sender.tab.id==crawlId:!1 && typeof request.start !== 'undefined')
-      sendResponse(true)
 
-    if (sender.tab?sender.tab.id==crawlId:!1 && typeof request.text !== 'undefined'){
-		socket.emit('ext', { text: request.text, channel: request.channel });
+    if (sender.tab ? sender.tab.id == crawlId : !1) {
+        socket.emit('ext', request);
     }
+
 });
 
-chrome.tabs.onRemoved.addListener((id)=>{
-  id==crawlId?crawlId=false:0;
+chrome.tabs.onRemoved.addListener((id) => {
+    id == crawlId ? crawlId = false : 0;
 })
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+    if (tab.url.indexOf('chaturbate.com/b/') == -1) {
+        chrome.notifications.create({
+            type: 'basic',
+            iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+            title: 'Bad webpage type!',
+            message: 'Please go to proper page'
+        })
+    } else {
+        crawlId = tab.id
+        chrome.tabs.sendMessage(crawlId, { start: !0 }, function(response) {
+            chrome.notifications.create({
+                type: 'basic',
+                iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+                title: 'Result.',
+                message: response.res
+            })
+        });
+    }
+});

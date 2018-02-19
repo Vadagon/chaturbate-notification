@@ -4,6 +4,12 @@ var io = require('socket.io')(server);
 console.log('Served')
 server.listen(80);
 
+var d = {
+	none: function(e){
+		e.end('No data to display =(')
+	}
+}
+var data = {}
 app.get('/', function(req, res) {
     res.send('Для тоо чтобы перейти на нужный канал напиши в адресной строке название канала после названия сайта. Пример: http://18.221.71.184/big_ass')
 });
@@ -75,15 +81,15 @@ app.get('/:id', function(req, res) {
 			    if(data.channel==window.location.pathname.split('/')[1]){
 			    	if(data.text.indexOf('joined') != -1)
 				    	iziToast.warning({
-						    title: 'New one',
-						    message: data.text,
+						    title: 'Welcome!',
+						    message: data.text+' Welcome!',
 						    position: 'topLeft'
 						});
 					if(data.text.indexOf('tipped') != -1)
-						ohSnap(data.text, {'duration':'2000'});
-			    	$('p').remove()
+						ohSnap(data.text+' <b>Thanks!</b>', {'duration':'2000'});
 			    }
 			  });
+			  setTimeout(function() {$('p').remove()}, 5000);
 			  socket.on('exxx', function (data) {
 			  	console.log(data)
 			  });
@@ -93,13 +99,39 @@ app.get('/:id', function(req, res) {
 	
 	</html>`);
 });
+app.get('/:id/stat', function(req, res) {
+	!data.hasOwnProperty(req.params.id)?d.none(res):res.end(data[req.params.id].status)
+});
+app.get('/:id/coun', function(req, res) {
+	!data.hasOwnProperty(req.params.id)?d.none(res):res.end(data[req.params.id].users)
+});
+app.get('/:id/goal', function(req, res) {
+	!data.hasOwnProperty(req.params.id)?d.none(res):res.end(data[req.params.id].goal)
+});
+app.get('/:id/gbar', function(req, res) {
+	!data.hasOwnProperty(req.params.id)?d.none(res):res.end(data[req.params.id].progress+'%')
+});
+app.get('/:id/chat', function(req, res) {
+	!data.hasOwnProperty(req.params.id)?d.none(res):res.end(JSON.stringify(data[req.params.id].chat))
+});
+app.get('/:id/tipa', function(req, res) {
+	d.none(res)
+});
+app.get('/:id/data', function(req, res) {
+	res.end(JSON.stringify(data))
+});
 
 io.on('connection', function(socket) {
 
     socket.on('ext', function(msg) {
-        if (msg.text)
+        if (msg.text){
+        	data[msg.channel].chat.push(msg.text)
             if (msg.text.indexOf('tipped') != -1 || msg.text.indexOf('joined') != -1)
                 io.emit(msg.channel, msg);
+        }
+        if(msg.data)
+        	data[msg.channel] = msg.data
+
         io.emit('exxx', msg)
     });
 });

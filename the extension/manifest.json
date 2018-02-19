@@ -10,20 +10,22 @@
     "storage",
     "<all_urls>",
     "webRequest", 
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "notifications"
   ],
   "browser_action": {
-    "default_title": "Click to open Popup",
-    "default_popup": "popup.html"
+    "default_title": "Click to open Popup"
   },
   "background": {
     "scripts": ["background.js"]
   },
+  "web_accessible_resources": [
+      "icon.png"
+  ],
   "content_scripts": [
     {
       "matches": ["https://*/*", "http://*/*", "<all_urls>"],
       "js": ["content.js"]
     }
-  ],
-  "options_page": "options.html"
+  ]
 }
