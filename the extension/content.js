@@ -5,32 +5,32 @@ void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!=
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.start == !0 && $('.chat-box .chat-list').length) {
-    	var progressText = $('#defchat > div.section > div.video-box > div.tip_shell.goal_host_panel > div.broadcaster_panel_goal_display > div.goal_display > table > tbody > tr:nth-child(1) > td').text().split('/')
-    	var data = {
-    		status: $('#roomtitle').text(),
-    		users: $('.usercount').text(),
-    		goal: (function(){
-    			var text = ''; 
-    			$('.broadcaster_panel_goal_display .goal_display_table tr').each((id, el)=>{
-    				text += $(el).text()
-				})
-				return text
-    		})(),
-    		progress: parseInt(progressText[0]) / parseInt(progressText[1]),
-    		chat: (function(){
-    			var chat = []
-    			$('.chat-list > *').each(function(id, el){
-    				$(el).attr('parsed', '1')
-    				chat.push($(el).text())
-    			})
-    			return chat
-    		})()
-    	}
-    	console.log(data)
-    	chrome.runtime.sendMessage({ data: data, channel: window.location.pathname.split('/b/')[1].replace('/', '') })
-
-
-
+    	(function foo(){
+	    	var progressText = $('#defchat > div.section > div.video-box > div.tip_shell.goal_host_panel > div.broadcaster_panel_goal_display > div.goal_display > table > tbody > tr:nth-child(1) > td').text().split('/')
+	    	var data = {
+	    		status: $('#roomtitle').text(),
+	    		users: $('.usercount').text(),
+	    		goal: (function(){
+	    			var text = ''; 
+	    			$('.broadcaster_panel_goal_display .goal_display_table tr').each((id, el)=>{
+	    				text += $(el).text()
+					})
+					return text
+	    		})(),
+	    		progress: parseInt(progressText[0]) / parseInt(progressText[1]),
+	    		chat: (function(){
+	    			var chat = []
+	    			$('.chat-list > *').each(function(id, el){
+	    				$(el).attr('parsed', '1')
+	    				chat.push($(el).text())
+	    			})
+	    			return chat
+	    		})()
+	    	}
+	    	console.log(data)
+	    	chrome.runtime.sendMessage({ data: data, channel: window.location.pathname.split('/b/')[1].replace('/', '') })
+	    	setTimeout(foo, 10000);
+    	})()
         setInterval(function() {
             $('.chat-list > *:not([parsed="1"])').map((index, th) => { 
             	th.setAttribute('parsed', '1');
@@ -44,3 +44,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         sendResponse({ res: "Error" });
     }
 });
+
+
+
