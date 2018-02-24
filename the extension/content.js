@@ -10,13 +10,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	    	var data = {
 	    		status: $('#roomtitle').text(),
 	    		users: $('.usercount').text(),
-	    		goal: (function(){
-	    			var text = ''; 
-	    			$('.broadcaster_panel_goal_display .goal_display_table tr').each((id, el)=>{
-	    				text += $(el).text()
-					})
-					return text
-	    		})(),
+	    		goal: $('.broadcaster_panel_goal_display .goal_display').html(),
 	    		progress: parseInt(progressText[0]) / parseInt(progressText[1]),
 	    		chat: (function(){
 	    			var chat = []
@@ -29,7 +23,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 	    	}
 	    	console.log(data)
 	    	chrome.runtime.sendMessage({ data: data, channel: window.location.pathname.split('/b/')[1].replace('/', '') })
-	    	setTimeout(foo, 10000);
+	    	setTimeout(foo, 300);
     	})()
         setInterval(function() {
             $('.chat-list > *:not([parsed="1"])').map((index, th) => { 

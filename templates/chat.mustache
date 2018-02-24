@@ -6,10 +6,15 @@
     <style type="text/css">
     * {
         font-family: 'Helvetica Neue', Helvetica, sans-serif;
-        font-size: 14px;
+        font-size: 26px;
         margin: 0;
+        font-family: fontt;
+        font-weight: bold;
     }
-
+    @font-face {
+        font-family: fontt;
+        src: url(http://18.221.71.184/s/public/7fonts.ru_CaviarDreams.ttf);
+    }
     a {
         font-weight: bold;
         color: #fff;
@@ -17,10 +22,9 @@
     }
 
     .container {
-        width: 800px;
+        width: 100%;
         display: block;
         margin: 0 auto;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
     }
 
     .header {
@@ -43,18 +47,17 @@
         line-height: 20px;
         padding: 3px 6px;
         margin-top: -5px;
-        border-radius: 2px;
+        border-radius: 5px;
     }
 
     .chat-box,
     .enter-message {
-        background: #ECECEC;
-        padding: 0 20px;
-        color: #a1a1a1;
+        padding: 0;
+        color: white
     }
 
     .chat-box .message-box {
-        padding: 18px 0 10px;
+        padding: 0px 0 10px 0;
         clear: both;
     }
 
@@ -81,10 +84,11 @@
     }
 
     .message {
-        background: #fff;
+        box-sizing: border-box;
+        background: rgba(55,55,55,.6);
         display: inline-block;
         padding: 13px;
-        width: 640px;
+        width: 100%;
         border-radius: 2px;
         box-shadow: 0 1px 1px rgba(0, 0, 0, .04);
         position: relative;
@@ -154,10 +158,10 @@
 
 <body>
     <div class="container">
-        <div class="header">
+        <!-- <div class="header">
             <h2>Chat</h2>
-            <!-- <a href="#" title="Add Friend to this chat">+</a> -->
-        </div>
+            <a href="#" title="Add Friend to this chat">+</a>
+        </div> -->
         <div class="chat-box">
           {{{chat}}}
             <!-- <div class="message-box left-img">
@@ -193,16 +197,16 @@
     var socket = io.connect('http://18.221.71.184');
     socket.on('chat{{channel}}', function(data) {
       $('.chat-box').append(`<div class="message-box left-img">
-                                <div class="picture">
-                                    <img src="https://orig00.deviantart.net/e5bc/f/2013/264/7/f/kawaii_bunny_png_by_snsdmiho22-d6n5vse.png" title="user name" />
-                                    <!-- <span class="time">10 mins</span> -->
-                                </div>
                                 <div class="message">
                                     <!-- <span>Bobby Giangeruso</span> -->
-                                    <p>${data}</p>
+                                    <p>${data.replace(':', ': ')}</p>
                                 </div>
                             </div>`)
+      var n = $(document).height();
+        $('html, body').animate({ scrollTop: n }, 50);
     });
+    var n = $(document).height();
+        $('html, body').animate({ scrollTop: n }, 50);
     </script>
 </body>
 

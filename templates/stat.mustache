@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Status</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+    }
+    @font-face {
+            font-family: fontt;
+            src: url(http://18.221.71.184/s/public/7fonts.ru_CaviarDreams.ttf);
+        }
+    span {
+            font-size: 5vw;
+            font-family: fontt;
+        font-weight: bold;
+            padding: 7px;
+            display: inline-block;
+            color: white;
+            background: rgba(55,55,55,.6);
+            text-align: center;
+            display: block;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <span id="fittext2">{{data}}</span>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.2.0/jquery.fittext.min.js"></script>
+    <script type="text/javascript">
+        // $("#fittext1").fitText();
+        // $("#fittext2").fitText(1.2);
+        // $("#fittext3").fitText(1.1, { minFontSize: '50px', maxFontSize: '75px' });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script>
+    var socket = io.connect('http://18.221.71.184');
+    socket.on('data{{channel}}', function(data) {
+        $('#fittext2').text(data.status); 
+    });
+    </script>
+</body>
+
+</html>

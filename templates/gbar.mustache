@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{data}}</title>
+    <style>
+    body {
+        visibility: hidden;
+    }
+
+    body,
+    html {
+        height: 100%;
+        margin: 0;
+    }
+
+    #container {
+        padding: 14%;
+        padding-top: 0;
+        box-sizing: border-box;
+        margin: auto;
+        font-family: fontt;
+        font-weight: bold;
+        position: relative;
+    }
+    @font-face {
+        font-family: fontt;
+        src: url(http://18.221.71.184/s/public/7fonts.ru_CaviarDreams.ttf);
+    }
+    #perc {
+        padding: 10px;
+        background: rgba(55,55,55,.6);
+        color: white;
+        border-radius: 50%;
+        position: absolute;
+        left: calc( 50% - 10vw);
+        top: calc( 36% - 2.5vw);
+        font-size: 10vw;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <span id="perc">{{data}}%</span>
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 100 100">
+            <path fill-opacity="0" stroke-width="1" stroke="#bbb" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z" />
+            <path id="heart-path" fill-opacity="0" stroke-width="3" stroke="#ED6A5A" d="M81.495,13.923c-11.368-5.261-26.234-0.311-31.489,11.032C44.74,13.612,29.879,8.657,18.511,13.923  C6.402,19.539,0.613,33.883,10.175,50.804c6.792,12.04,18.826,21.111,39.831,37.379c20.993-16.268,33.033-25.344,39.819-37.379  C99.387,33.883,93.598,19.539,81.495,13.923z" />
+        </svg>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
+    <script>
+    (function() {
+        document.body.style.visibility = 'visible'
+        bar = new ProgressBar.Path('#heart-path', {
+            easing: 'easeInOut',
+            duration: 1400
+        });
+
+        bar.set(0);
+        bar.animate({{data}}/100); // Number from 0.0 to 1.0
+    })()
+    var socket = io.connect('http://18.221.71.184');
+    socket.on('data{{channel}}', function(data) {
+        bar.set(data.progress/100)
+    });
+    </script>
+</body>
+
+</html>
