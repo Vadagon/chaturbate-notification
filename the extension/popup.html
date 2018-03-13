@@ -3,33 +3,72 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="custom/css/popup.css">
+    <script type="text/javascript" src="custom/js/plugins.js"></script>
     <script type="text/javascript" src="custom/js/angular.js"></script>
     <script type="text/javascript" src="custom/js/popup.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather|Mina|Rammetto+One" rel="stylesheet">
 </head>
 
 <body ng-app="app" ng-controller="ctrl">
-    <div class="container z-1" ng-style="{'visibility': tab.settings ? 'visible' : 'hidden'}">
+    <div class="container z-1" ng-show="!tab.settings" >
     	<h1>BroadCast Extender</h1>
         <a href="#" class="button start" ng-click="do()">Connect</a>
-        <a href="#" class="button pause" ng-click="tab.settings=!1">Settings</a>
+        <a href="#" class="button pause" ng-click="tab.settings=!0">Settings</a>
     </div>
-    <div class="container z-2 settings"  ng-style="{'visibility': !tab.settings ? 'visible' : 'hidden'}">
-        <span class="menuItem" ng-click="tab.settings=!0"><i class="material-icons">close</i></span>
-        <h1>Settings</h1>
+    <div class="container z-2 settings"  ng-show="tab.settings">
+        <span class="menuItem" ng-click="tab.settings=!1"><i class="material-icons">close</i></span>
+        <h1 style="font-family: {{font[d.font.style]}};">Settings</h1>
         <br>
         <div class="formGroup">
             <div class="one-half">
-                <label>Work time</label>
-                <input type="number" name="" ng-model="d.work">
+                <label>Font Style</label>
+                <select ng-model="d.font.style">
+                	<option ng-value="0">#1</option>
+                	<option ng-value="1">#2</option>
+                	<option ng-value="2">#3</option>
+                </select>
             </div>
             <div class="one-half">
-                <label>Pause time</label>
-                <input type="number" name="" ng-model="d.pause">
+                <label>Font Color</label>
+                <input class="jscolor" ng-model="d.font.color">
             </div>
         </div>
-        <a href="#" class="button start" style="position: absolute; bottom: 10px; width: calc(100% - 40px); top: auto;" ng-click="do(11, $event)">Save</a>
+        <div class="formGroup">
+            <div class="one-half">
+                <label>Background Color</label>
+                <input class="jscolor" ng-model="d.back.color">
+            </div>
+            <div class="one-half">
+                <label>Background Transparent (0-100%)</label>
+                <input type="number" max="100" min="0" ng-model="d.back.trans">
+            </div>
+        </div>
+        <h1 style="font-family: {{font[d.font.style]}};">Animations</h1>
+		<div class="formGroup">
+			<table>
+				<tr class="th">
+					<td>Level</td><td>Start tokens</td><td>Duration</td><td>
+						<select ng-model="d.pack">
+		                	<option ng-value="1">#1 Pack</option>
+		                	<option ng-value="2">#2 Pack</option>
+		                	<option ng-value="3">#3 Pack</option>
+		                </select>
+					</td>
+				</tr>
+				<tr>
+					<td class="leel">1</td><td><input type="number" ng-model="d.token[0]"></td><td><input type="number" ng-model="d.duration[0]"></td><td><img src="http://18.221.71.184/s/public/g{{d.pack}}_1.gif"></td>
+				</tr>
+				<tr>
+					<td class="leel">2</td><td><input type="number" ng-model="d.token[1]"></td><td><input type="number" ng-model="d.duration[1]"></td><td><img src="http://18.221.71.184/s/public/g{{d.pack}}_2.gif"></td>
+				</tr>
+				<tr>
+					<td class="leel">3</td><td><input type="number" ng-model="d.token[2]"></td><td><input type="number" ng-model="d.duration[2]"></td><td><img src="http://18.221.71.184/s/public/g{{d.pack}}_3.gif"></td>
+				</tr>
+			</table>
+		</div>
+		<br>
+        <a href="#" class="button start" ng-click="do(11, $event)">Save</a>
     </div>
 </body>
 

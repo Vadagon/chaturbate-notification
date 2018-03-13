@@ -20,10 +20,10 @@ transition: .25s ease-in-out;
 
 body {
     background: #f1f1f1;
-    width: 200px;
 }
 
 .container {
+    width: 200px;
     background: #f1f1f1;
     position: relative;
     border: 1px dashed #bfbfbf;
@@ -279,19 +279,20 @@ a.button:active {
 
 .settings {
     padding-bottom: 35;
-    position: absolute;
-    top: 0;
+    width: 600px;
     box-sizing: border-box;
-    right: 0;
-    left: 0;
-    bottom: 0;
+    overflow-x: hidden;
 }
 
 .formGroup {
     padding: 0 20px;
+    margin-bottom: 15px;
+}
+.formGroup label{
+    font-size: 1.3em;
 }
 
-.formGroup input {
+.formGroup input, .formGroup select {
     display: block;
     padding: 5px;
     width: 100%;
@@ -300,7 +301,27 @@ a.button:active {
 
 .one-half {
     padding: 0;
-    width: 48%;
+    width: 50%;
     margin: 0;
     display: inline-block;
+    margin-right: -2px;
+}
+table {
+    text-align: center;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+table img{
+    /*width: 100%;*/
+    height: 56px;
+}
+table .th{
+    font-size: 1.6em;
+}
+table .leel{
+    font-size: 4em;
 }

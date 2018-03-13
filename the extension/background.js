@@ -7,6 +7,10 @@ var crawlId = false;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
+	if(request.c==11){
+		return;
+	}
+
     if (sender.tab ? sender.tab.id == crawlId : !1) {
         socket.emit('ext', request);
     }else{
