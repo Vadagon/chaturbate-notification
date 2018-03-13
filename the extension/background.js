@@ -9,6 +9,31 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
     if (sender.tab ? sender.tab.id == crawlId : !1) {
         socket.emit('ext', request);
+    }else{
+    	chrome.tabs.query({active: !0, highlighted: !0, currentWindow: !0}, function(tab){
+    		console.log(tab = tab[0])
+
+				    if (tab.url.indexOf('chaturbate.com/b/') == -1) {
+				        chrome.notifications.create({
+				            type: 'basic',
+				            iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+				            title: 'Bad webpage type!',
+				            message: 'Please go to the proper page'
+				        })
+				    } else {
+				        crawlId = tab.id
+				        chrome.tabs.sendMessage(crawlId, { start: !0 }, function(response) {
+				            chrome.notifications.create({
+				                type: 'basic',
+				                iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+				                title: 'Result.',
+				                message: response.res
+				            })
+				        });
+				    }
+
+
+    	})
     }
 
 });
@@ -17,23 +42,23 @@ chrome.tabs.onRemoved.addListener((id) => {
     id == crawlId ? crawlId = false : 0;
 })
 
-chrome.browserAction.onClicked.addListener(function(tab) {
-    if (tab.url.indexOf('chaturbate.com/b/') == -1) {
-        chrome.notifications.create({
-            type: 'basic',
-            iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
-            title: 'Bad webpage type!',
-            message: 'Please go to proper page'
-        })
-    } else {
-        crawlId = tab.id
-        chrome.tabs.sendMessage(crawlId, { start: !0 }, function(response) {
-            chrome.notifications.create({
-                type: 'basic',
-                iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
-                title: 'Result.',
-                message: response.res
-            })
-        });
-    }
-});
+// chrome.browserAction.onClicked.addListener(function(tab) {
+//     if (tab.url.indexOf('chaturbate.com/b/') == -1) {
+//         chrome.notifications.create({
+//             type: 'basic',
+//             iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+//             title: 'Bad webpage type!',
+//             message: 'Please go to the proper page'
+//         })
+//     } else {
+//         crawlId = tab.id
+//         chrome.tabs.sendMessage(crawlId, { start: !0 }, function(response) {
+//             chrome.notifications.create({
+//                 type: 'basic',
+//                 iconUrl: 'http://files.softicons.com/download/application-icons/128px-icon-set-by-ampeross/logo.png',
+//                 title: 'Result.',
+//                 message: response.res
+//             })
+//         });
+//     }
+// });

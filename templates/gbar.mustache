@@ -60,12 +60,12 @@
         });
 
         bar.set(0);
-        bar.animate({{data}}/100); // Number from 0.0 to 1.0
+        bar.animate({{data}}/100);
+        var socket = io.connect('http://18.221.71.184');
+        socket.on('data{{channel}}', function(data) {
+            bar.set(data.progress/100)
+        });
     })()
-    var socket = io.connect('http://18.221.71.184');
-    socket.on('data{{channel}}', function(data) {
-        bar.set(data.progress/100)
-    });
     </script>
 </body>
 

@@ -1,14 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+    <link rel="stylesheet" type="text/css" href="custom/css/popup.css">
+    <script type="text/javascript" src="custom/js/angular.js"></script>
+    <script type="text/javascript" src="custom/js/popup.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 </head>
-<body>
-	Enter channel name
-    <input type="text" id="the" placeholder="big_ass">
-    <input type="submit" id="tho" name="" value="OK" onclick="parseIt()">
 
-
-    
-	<script type="text/javascript" src="assets/popup.js"></script>
+<body ng-app="app" ng-controller="ctrl">
+    <div class="container z-1" ng-style="{'visibility': tab.settings ? 'visible' : 'hidden'}">
+    	<h1>BroadCast Extender</h1>
+        <a href="#" class="button start" ng-click="do()">Connect</a>
+        <a href="#" class="button pause" ng-click="tab.settings=!1">Settings</a>
+    </div>
+    <div class="container z-2 settings"  ng-style="{'visibility': !tab.settings ? 'visible' : 'hidden'}">
+        <span class="menuItem" ng-click="tab.settings=!0"><i class="material-icons">close</i></span>
+        <h1>Settings</h1>
+        <br>
+        <div class="formGroup">
+            <div class="one-half">
+                <label>Work time</label>
+                <input type="number" name="" ng-model="d.work">
+            </div>
+            <div class="one-half">
+                <label>Pause time</label>
+                <input type="number" name="" ng-model="d.pause">
+            </div>
+        </div>
+        <a href="#" class="button start" style="position: absolute; bottom: 10px; width: calc(100% - 40px); top: auto;" ng-click="do(11, $event)">Save</a>
+    </div>
 </body>
+
 </html>

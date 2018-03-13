@@ -21,7 +21,7 @@ var d = {
 }
 // <meta http-equiv="refresh" content="5">
 
-var data = {"janecheerful":{"status":"hijjj [100 tokens remaining]","users":"1","goal":"<table class=\"goal_display_table\">\n<tbody><tr class=\"dark_blue\">\n<th>\n<div class=\"counter_label_green\">Tip Received / Goal :</div>\n</th>\n<td class=\"data\">0 / 100</td>\n</tr>\n<tr class=\"dark_light_blue\">\n<th>\n<div class=\"counter_label\">Highest Tip:</div>\n</th>\n<td class=\"data\">-- (0)</td>\n</tr>\n<tr class=\"dark_blue\">\n<th>\n<div class=\"counter_label\">Latest Tip Received:</div>\n</th>\n<td class=\"data\">-- (0)</td>\n</tr>\n</tbody></table>","progress":61,"chat":["connection established","Broadcaster Rules: Tokens are the only form of payment allowed. You may promote your personal website as long as it does not offer video chat. Do not provide your Skype or Yahoo Messenger to anyone, and do not ask users to chat with you elsewhere.","Your cam is visible to men, women, trans, couples. Edit this in settings & privacy.","You are running these apps: Tip Goal","room subject changed to \"hijjj [100 tokens remaining]\"","Broadcaster janecheerful  has joined the room."]}}
+var data = {}
 app.get('/', function(req, res) {
     res.send('Для тоо чтобы перейти на нужный канал напиши в адресной строке название канала после названия сайта. Пример: http://18.221.71.184/big_ass/stat')
 });

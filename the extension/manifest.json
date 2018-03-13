@@ -14,13 +14,15 @@
     "notifications"
   ],
   "browser_action": {
-    "default_title": "Click to open Popup"
+    "default_title": "Click to open Popup",
+    "default_popup": "popup.html"
   },
   "background": {
     "scripts": ["background.js"]
   },
   "web_accessible_resources": [
-      "icon.png"
+      "icon.png",
+      "custom/*"
   ],
   "content_scripts": [
     {
